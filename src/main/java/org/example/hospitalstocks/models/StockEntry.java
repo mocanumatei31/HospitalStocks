@@ -15,8 +15,8 @@ import java.time.LocalDate;
 @Table(name = "STOCK_ENTRY")
 public class StockEntry {
     @Id
-    @Size(max = 40)
-    @Column(name = "ID", nullable = false, length = 40)
+    @Size(max = 50)
+    @Column(name = "ID", nullable = false, length = 50)
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)

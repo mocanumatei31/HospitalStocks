@@ -6,8 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -15,8 +14,8 @@ import java.util.Set;
 @Table(name = "MANUFACTURER")
 public class Manufacturer {
     @Id
-    @Size(max = 40)
-    @Column(name = "ID", nullable = false, length = 40)
+    @Size(max = 50)
+    @Column(name = "ID", nullable = false, length = 50)
     private String id;
 
     @Size(max = 75)
@@ -48,7 +47,25 @@ public class Manufacturer {
     @Column(name = "COUNTRY", length = 50)
     private String country;
 
-    @OneToMany(mappedBy = "id")
-    private Set<Drug> drug = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "manufacturer")
+    private Set<Drug> drugs = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        List<String> names = new ArrayList<>();
+        for(Drug d : drugs){
+            names.add(d.getName());
+        }
+        return "Manufacturer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", drugs=" + names +
+                '}';
+    }
 }

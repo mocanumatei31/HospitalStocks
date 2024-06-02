@@ -17,6 +17,9 @@ public class ManufacturersController {
 
     @GetMapping("/manufacturers")
     public List<Manufacturer> getAllManufacturers() {
+        for(Manufacturer m : manufacturerService.getAllManufacturers()){
+            System.out.println(m);
+        }
         return manufacturerService.getAllManufacturers();
     }
 }

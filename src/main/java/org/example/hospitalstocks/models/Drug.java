@@ -17,15 +17,9 @@ import java.util.Set;
 @Table(name = "DRUG")
 public class Drug {
     @Id
-    @Size(max = 40)
-    @Column(name = "ID", nullable = false, length = 40)
+    @Size(max = 50)
+    @Column(name = "ID", nullable = false, length = 50)
     private String id;
-
-    @MapsId
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "ID", nullable = false)
-    private Manufacturer manufacturer;
 
     @Size(max = 50)
     @NotNull
@@ -48,9 +42,10 @@ public class Drug {
     @Column(name = "TYPE", length = 50)
     private String type;
 
-    @Size(max = 40)
-    @Column(name = "MANUFACTURER_ID", length = 40)
-    private String manufacturerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "MANUFACTURER_ID")
+    private Manufacturer manufacturer;
 
     @OneToMany(mappedBy = "drug")
     private Set<Offer> offers = new LinkedHashSet<>();
@@ -58,4 +53,18 @@ public class Drug {
     @OneToMany(mappedBy = "drug")
     private Set<StockEntry> stockEntries = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return "Drug{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", dosage='" + dosage + '\'' +
+                ", type='" + type + '\'' +
+                ", manufacturer=" + manufacturer.getName() +
+                ", offers=" + offers +
+                ", stockEntries=" + stockEntries +
+                '}';
+    }
 }
