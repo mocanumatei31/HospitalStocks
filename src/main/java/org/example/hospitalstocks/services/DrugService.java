@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DrugService {
@@ -17,4 +18,9 @@ public class DrugService {
     public void addDrug(Drug drug){
         drugRepository.save(drug);
     }
+    public Drug findById(String id) {
+        Optional<Drug> drug = drugRepository.findById(id);
+        return drug.orElse(null);
+    }
+
 }
