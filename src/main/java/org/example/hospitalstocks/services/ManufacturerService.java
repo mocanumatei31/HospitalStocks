@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ManufacturerService {
@@ -19,7 +20,10 @@ public class ManufacturerService {
         Optional<Manufacturer> manufacturer = manufacturerRepository.findById(id);
         return manufacturer.orElse(null);
     }
-    public Manufacturer addManufacturer(Manufacturer manufacturer) {
-        return manufacturerRepository.save(manufacturer);
+    public void addManufacturer(Manufacturer manufacturer) {
+        manufacturerRepository.save(manufacturer);
+    }
+    public void deleteManufacturer(String id) {
+        manufacturerRepository.deleteById(id);
     }
 }
