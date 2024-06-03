@@ -1,5 +1,7 @@
 package org.example.hospitalstocks.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -18,12 +20,15 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+@Tag(name = "Purchases Controller", description = "Management of the Data regarding Purchases made by the Hospital")
 @CrossOrigin(origins = "http://127.0.0.1:5500/")
 @RestController
 public class PurchaseController {
     @Autowired
     private PurchaseService purchaseService;
 
+    @Operation(summary = "Retrieves all Purchases made by the Hospital",
+                description = "Returns a List of Purchases made by the Hospital")
     @GetMapping("/purchases")
     public List<PurchaseResponseBody> getAllPurchases() {
         return purchaseService.getAllPurchases();
