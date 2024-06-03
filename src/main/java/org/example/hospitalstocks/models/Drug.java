@@ -53,6 +53,9 @@ public class Drug {
     @OneToMany(mappedBy = "drug")
     private Set<StockEntry> stockEntries = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "drug")
+    private Set<Purchase> purchases = new LinkedHashSet<>();
+
     @Override
     public String toString() {
         return "Drug{" +

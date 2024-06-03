@@ -13,8 +13,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "OFFER")
-public class Offer {
+@Table(name = "PURCHASE")
+public class Purchase {
     @Id
     @Size(max = 50)
     @Column(name = "ID", nullable = false, length = 50)
@@ -31,7 +31,7 @@ public class Offer {
     @Column(name = "QUANTITY")
     private Integer quantity;
 
-    @Column(name = "EXPIRY_DATE")
-    private LocalDate expiryDate;
+    @Column(name = "DATE_BOUGHT")
+    private LocalDate dateBought;
 
 }
