@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://127.0.0.1:5500/")
 @RestController
 public class OfferController {
     @Autowired
@@ -20,6 +20,7 @@ public class OfferController {
 
     @PostMapping("/offers/buy")
     public void buyOffer(@RequestBody String id){
+        id = id.replace("\"", "");
         offerService.buyOffer(id);
     }
 }
