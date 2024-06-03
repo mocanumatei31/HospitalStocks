@@ -1,6 +1,7 @@
 package org.example.hospitalstocks.controllers;
 
 import org.example.hospitalstocks.models.Drug;
+import org.example.hospitalstocks.responsebodies.DrugResponseBody;
 import org.example.hospitalstocks.services.DrugService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class DrugController {
     }
 
     @GetMapping("/drugs/{id}")
-    public Drug getDrugById(@PathVariable String id) {
+    public DrugResponseBody getDrugById(@PathVariable String id) {
         return drugService.findById(id);
     }
 

@@ -3,6 +3,8 @@ package org.example.hospitalstocks.controllers;
 
 import org.example.hospitalstocks.models.Manufacturer;
 import org.example.hospitalstocks.repositories.ManufacturerRepository;
+import org.example.hospitalstocks.responsebodies.DrugResponseBody;
+import org.example.hospitalstocks.responsebodies.ManufacturerResponseBody;
 import org.example.hospitalstocks.services.ManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +31,10 @@ public class ManufacturersController {
     @DeleteMapping("/manufacturers/delete/{id}")
     public void deleteManufacturer(@PathVariable String id) {
         manufacturerService.deleteManufacturer(id);
+    }
+
+    @GetMapping("/manufacturers/{id}")
+    public ManufacturerResponseBody getDrugById(@PathVariable String id) {
+        return manufacturerService.getManufacturerById(id);
     }
 }
