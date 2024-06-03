@@ -1,7 +1,10 @@
 package org.example.hospitalstocks.services;
 
 import org.example.hospitalstocks.models.Offer;
+import org.example.hospitalstocks.models.Purchase;
+import org.example.hospitalstocks.models.StockEntry;
 import org.example.hospitalstocks.repositories.OfferRepository;
+import org.example.hospitalstocks.requestbodies.OfferRequestBody;
 import org.example.hospitalstocks.responsebodies.OfferResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,10 @@ import java.util.Optional;
 public class OfferService {
     @Autowired
     private OfferRepository offerRepository;
+    @Autowired
+    private PurchaseService purchaseService;
+    @Autowired
+    private StockEntryService stockEntryService;
 
     public List<OfferResponseBody> getAllOffers() {
         List<OfferResponseBody> offers = new ArrayList<>();
@@ -23,6 +30,15 @@ public class OfferService {
         return offers;
     }
 
+    public void buyOffer(String id) {
+        Optional<Offer> optionalOffer = offerRepository.findById(id);
+        if (optionalOffer.isPresent()) {
+            Offer offer = optionalOffer.get();
+            purchaseService.createFromOffer(offer);
+            stockEntryService.createStockEntryFromOffer(offer);
+            deleteOffer(offer.getId());
+        }
+    }
 
     public Offer getOfferById(String id) {
         Optional<Offer> offer = offerRepository.findById(id);

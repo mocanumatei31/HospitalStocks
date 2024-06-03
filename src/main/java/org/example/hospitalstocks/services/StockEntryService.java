@@ -1,5 +1,6 @@
 package org.example.hospitalstocks.services;
 
+import org.example.hospitalstocks.models.Offer;
 import org.example.hospitalstocks.models.StockEntry;
 import org.example.hospitalstocks.repositories.StockEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class StockEntryService {
@@ -31,5 +33,13 @@ public class StockEntryService {
             stockEntryOptional.get().setQuantity(stockEntry.getQuantity());
             stockEntryRepository.save(stockEntryOptional.get());
         }
+    }
+    public void createStockEntryFromOffer(Offer offer) {
+        StockEntry stockEntry = new StockEntry();
+        stockEntry.setId(UUID.randomUUID().toString());
+        stockEntry.setQuantity(offer.getQuantity());
+        stockEntry.setExpiryDate(offer.getExpiryDate());
+        stockEntry.setDrug(offer.getDrug());
+        stockEntryRepository.save(stockEntry);
     }
 }
