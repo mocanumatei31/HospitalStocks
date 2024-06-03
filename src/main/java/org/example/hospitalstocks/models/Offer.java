@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -29,5 +30,8 @@ public class Offer {
 
     @Column(name = "QUANTITY")
     private Integer quantity;
+
+    @Column(name = "EXPIRY_DATE")
+    private LocalDate expiryDate;
 
 }
