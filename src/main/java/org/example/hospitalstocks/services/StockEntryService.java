@@ -3,9 +3,11 @@ package org.example.hospitalstocks.services;
 import org.example.hospitalstocks.models.Offer;
 import org.example.hospitalstocks.models.StockEntry;
 import org.example.hospitalstocks.repositories.StockEntryRepository;
+import org.example.hospitalstocks.responsebodies.StockEntryResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,8 +16,12 @@ import java.util.UUID;
 public class StockEntryService {
     @Autowired
     private StockEntryRepository stockEntryRepository;
-    public List<StockEntry> findAll() {
-        return stockEntryRepository.findAll();
+    public List<StockEntryResponseBody> findAll() {
+        List<StockEntryResponseBody> stockEntries = new ArrayList<>();
+        for (StockEntry stockEntry : stockEntryRepository.findAll()) {
+            stockEntries.add(new StockEntryResponseBody(stockEntry));
+        }
+        return stockEntries;
     }
     public StockEntry save(StockEntry stockEntry) {
         return stockEntryRepository.save(stockEntry);

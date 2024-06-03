@@ -1,11 +1,13 @@
 package org.example.hospitalstocks.responsebodies;
 
+import lombok.Data;
 import org.example.hospitalstocks.models.Drug;
 import org.example.hospitalstocks.models.Purchase;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Data
 public class PurchaseResponseBody {
     private String id;
     private String drugName;
