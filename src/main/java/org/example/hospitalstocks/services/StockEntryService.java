@@ -47,6 +47,9 @@ public class StockEntryService {
         Optional<StockEntry> stockEntryOptional = stockEntryRepository.findById(id);
         if (stockEntryOptional.isPresent()) {
             stockEntryOptional.get().setQuantity(stockEntryOptional.get().getQuantity() - quantity);
+            if(stockEntryOptional.get().getQuantity() <= 0) {
+                stockEntryRepository.delete(stockEntryOptional.get());
+            }
             stockEntryRepository.save(stockEntryOptional.get());
         }
     }
