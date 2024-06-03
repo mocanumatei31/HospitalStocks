@@ -2,9 +2,11 @@ package org.example.hospitalstocks.services;
 
 import org.example.hospitalstocks.models.Offer;
 import org.example.hospitalstocks.repositories.OfferRepository;
+import org.example.hospitalstocks.responsebodies.OfferResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +15,14 @@ public class OfferService {
     @Autowired
     private OfferRepository offerRepository;
 
-    public List<Offer> getAllOffers() {
-        return offerRepository.findAll();
+    public List<OfferResponseBody> getAllOffers() {
+        List<OfferResponseBody> offers = new ArrayList<>();
+        for (Offer offer : offerRepository.findAll()) {
+            offers.add(new OfferResponseBody(offer));
+        }
+        return offers;
     }
+
 
     public Offer getOfferById(String id) {
         Optional<Offer> offer = offerRepository.findById(id);
