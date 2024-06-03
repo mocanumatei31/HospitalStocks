@@ -29,7 +29,12 @@ public class DrugController {
     }
 
     @GetMapping("/drugs/search/{name}")
-    public List<Drug> getDrugByNameLike(@PathVariable String name) {
+    public List<Drug> getDrugByNameContaining(@PathVariable String name) {
         return drugService.findByNameContaining(name);
+    }
+
+    @GetMapping("/drugs/{name}")
+    public DrugResponseBody getDrugByName(@PathVariable String name) {
+        return drugService.findByName(name);
     }
 }

@@ -31,4 +31,8 @@ public class ManufacturerService {
     public void deleteManufacturer(String id) {
         manufacturerRepository.deleteById(id);
     }
+
+    public ManufacturerResponseBody findManufacturerByName(String name) {
+        return new ManufacturerResponseBody(manufacturerRepository.findByNameLike(name));
+    }
 }

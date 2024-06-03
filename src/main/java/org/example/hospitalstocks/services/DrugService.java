@@ -34,4 +34,7 @@ public class DrugService {
         }
         return drugs;
     }
+    public DrugResponseBody findByName(String name) {
+        return new DrugResponseBody(drugRepository.findByNameLike(name));
+    }
 }

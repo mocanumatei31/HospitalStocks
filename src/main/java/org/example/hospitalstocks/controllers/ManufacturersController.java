@@ -1,6 +1,7 @@
 package org.example.hospitalstocks.controllers;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.hospitalstocks.models.Manufacturer;
 import org.example.hospitalstocks.repositories.ManufacturerRepository;
 import org.example.hospitalstocks.responsebodies.DrugResponseBody;
@@ -34,7 +35,12 @@ public class ManufacturersController {
     }
 
     @GetMapping("/manufacturers/{id}")
-    public ManufacturerResponseBody getDrugById(@PathVariable String id) {
+    public ManufacturerResponseBody getManufacturerById(@PathVariable String id) {
         return manufacturerService.getManufacturerById(id);
+    }
+
+    @GetMapping("/manufacturers/{name}")
+    public ManufacturerResponseBody getManufacturerByName(@PathVariable String name) {
+        return manufacturerService.findManufacturerByName(name);
     }
 }
