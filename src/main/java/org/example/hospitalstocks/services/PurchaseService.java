@@ -26,6 +26,10 @@ public class PurchaseService {
         return purchaseResponseBodies;
     }
 
+    public List<Purchase> getNormalPurchases() {
+        return purchaseRepository.findAll();
+    }
+
     public void add(Purchase purchase) {
         purchaseRepository.save(purchase);
     }

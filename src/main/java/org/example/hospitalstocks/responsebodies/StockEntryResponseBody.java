@@ -18,10 +18,14 @@ public class StockEntryResponseBody {
     private String drugName;
     private LocalDate expiryDate;
     private Integer quantity;
-    public StockEntryResponseBody(StockEntry stockEntry) {
+    private Double daysTillDone;
+    private Double dailyConsumption;
+    public StockEntryResponseBody(StockEntry stockEntry, Double dailyConsumption,  Double daysTillDone) {
         this.id = stockEntry.getId();
         this.drugName = stockEntry.getDrug().getName();
         this.expiryDate = stockEntry.getExpiryDate();
         this.quantity = stockEntry.getQuantity();
+        this.daysTillDone = daysTillDone;
+        this.dailyConsumption = dailyConsumption;
     }
 }

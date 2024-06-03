@@ -19,8 +19,8 @@ public class ConsumptionService {
         consumptionRepository.save(consumption);
     }
 
-    public void getConsumptions() {
-        List<Consumption> consumptions = consumptionRepository.findAll();
+    public List<Consumption> getConsumptions() {
+        return consumptionRepository.findAll();
     }
 
     public void getConsumptionFromStockEntry(StockEntry stockEntry, Integer quantity) {

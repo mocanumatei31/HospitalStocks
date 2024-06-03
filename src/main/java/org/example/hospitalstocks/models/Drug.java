@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -72,5 +73,18 @@ public class Drug {
                 ", offers=" + offers +
                 ", stockEntries=" + stockEntries +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Drug drug = (Drug) o;
+        return Objects.equals(id, drug.id) && Objects.equals(name, drug.name) && Objects.equals(description, drug.description) && Objects.equals(category, drug.category) && Objects.equals(dosage, drug.dosage) && Objects.equals(type, drug.type) && Objects.equals(manufacturer, drug.manufacturer) && Objects.equals(offers, drug.offers) && Objects.equals(stockEntries, drug.stockEntries) && Objects.equals(purchases, drug.purchases) && Objects.equals(consumptions, drug.consumptions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, category, dosage, type, manufacturer, offers, stockEntries, purchases, consumptions);
     }
 }
