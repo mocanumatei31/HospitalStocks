@@ -49,6 +49,7 @@ public class StockEntryService {
             stockEntryOptional.get().setQuantity(stockEntryOptional.get().getQuantity() - quantity);
             if(stockEntryOptional.get().getQuantity() <= 0) {
                 stockEntryRepository.delete(stockEntryOptional.get());
+                return;
             }
             stockEntryRepository.save(stockEntryOptional.get());
         }
