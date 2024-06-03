@@ -3,6 +3,7 @@ package org.example.hospitalstocks.services;
 import org.example.hospitalstocks.models.Offer;
 import org.example.hospitalstocks.models.StockEntry;
 import org.example.hospitalstocks.repositories.StockEntryRepository;
+import org.example.hospitalstocks.requestbodies.StockEntryConsumptionRequestBody;
 import org.example.hospitalstocks.responsebodies.StockEntryResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ import java.util.UUID;
 public class StockEntryService {
     @Autowired
     private StockEntryRepository stockEntryRepository;
+    @Autowired
+    private ConsumptionService consumptionService;
+
     public List<StockEntryResponseBody> findAll() {
         List<StockEntryResponseBody> stockEntries = new ArrayList<>();
         for (StockEntry stockEntry : stockEntryRepository.findAll()) {
@@ -33,10 +37,10 @@ public class StockEntryService {
     public void deleteById(String id) {
         stockEntryRepository.deleteById(id);
     }
-    public void updateStockEntry(String id, StockEntry stockEntry) {
+    public void updateStockEntry(String id, Integer quantity) {
         Optional<StockEntry> stockEntryOptional = stockEntryRepository.findById(id);
         if (stockEntryOptional.isPresent()) {
-            stockEntryOptional.get().setQuantity(stockEntry.getQuantity());
+            stockEntryOptional.get().setQuantity(stockEntryOptional.get().getQuantity() - quantity);
             stockEntryRepository.save(stockEntryOptional.get());
         }
     }
@@ -47,5 +51,14 @@ public class StockEntryService {
         stockEntry.setExpiryDate(offer.getExpiryDate());
         stockEntry.setDrug(offer.getDrug());
         stockEntryRepository.save(stockEntry);
+    }
+
+    public void updateEntriesOnConsumption(List<StockEntryConsumptionRequestBody> stockEntryConsumptionRequestBodyList){
+        for(StockEntryConsumptionRequestBody stockEntryConsumptionRequestBody : stockEntryConsumptionRequestBodyList){
+            String id = stockEntryConsumptionRequestBody.getId().replace("\"", "");
+            Integer quantity = stockEntryConsumptionRequestBody.getQuantity();
+            consumptionService.getConsumptionFromStockEntry(findById(id), quantity);
+            updateStockEntry(id, quantity);
+        }
     }
 }
