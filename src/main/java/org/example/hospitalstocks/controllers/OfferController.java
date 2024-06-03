@@ -19,7 +19,7 @@ public class OfferController {
     }
 
     @PostMapping("/offers/buy")
-    public void buyOffer(@RequestBody OfferRequestBody offerRequestBody){
-        offerService.buyOffer(offerRequestBody.getId());
+    public void buyOffer(@RequestBody String id){
+        offerService.buyOffer(id);
     }
 }
