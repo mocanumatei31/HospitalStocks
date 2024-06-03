@@ -53,12 +53,10 @@ public class StockEntryService {
         stockEntryRepository.save(stockEntry);
     }
 
-    public void updateEntriesOnConsumption(List<StockEntryConsumptionRequestBody> stockEntryConsumptionRequestBodyList){
-        for(StockEntryConsumptionRequestBody stockEntryConsumptionRequestBody : stockEntryConsumptionRequestBodyList){
-            String id = stockEntryConsumptionRequestBody.getId().replace("\"", "");
-            Integer quantity = stockEntryConsumptionRequestBody.getQuantity();
-            consumptionService.getConsumptionFromStockEntry(findById(id), quantity);
-            updateStockEntry(id, quantity);
-        }
+    public void updateEntryOnConsumption(StockEntryConsumptionRequestBody stockEntryConsumptionRequestBody){
+        String id = stockEntryConsumptionRequestBody.getId().replace("\"", "");
+        Integer quantity = stockEntryConsumptionRequestBody.getQuantity();
+        consumptionService.getConsumptionFromStockEntry(findById(id), quantity);
+        updateStockEntry(id, quantity);
     }
 }

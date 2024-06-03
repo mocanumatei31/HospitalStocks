@@ -21,8 +21,8 @@ public class StockEntryController {
     }
 
     @PutMapping("/stocks/update")
-    public void UpdateStocks(@RequestBody List<StockEntryConsumptionRequestBody> stockEntries) {
-        stockEntryService.updateEntriesOnConsumption(stockEntries);
+    public void UpdateStocks(@RequestBody StockEntryConsumptionRequestBody stockEntryConsumptionRequestBody) {
+        stockEntryService.updateEntryOnConsumption(stockEntryConsumptionRequestBody);
     }
 
 }
