@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -55,6 +56,9 @@ public class Drug {
 
     @OneToMany(mappedBy = "drug")
     private Set<Purchase> purchases = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "drug")
+    private Set<Consumption> consumptions = new LinkedHashSet<>();
 
     @Override
     public String toString() {

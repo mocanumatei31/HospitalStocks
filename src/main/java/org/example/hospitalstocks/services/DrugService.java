@@ -2,6 +2,7 @@ package org.example.hospitalstocks.services;
 
 import org.example.hospitalstocks.models.Drug;
 import org.example.hospitalstocks.repositories.DrugRepository;
+import org.example.hospitalstocks.responsebodies.DrugResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,11 @@ public class DrugService {
     public void addDrug(Drug drug){
         drugRepository.save(drug);
     }
-    public Drug findById(String id) {
-        Optional<Drug> drug = drugRepository.findById(id);
-        return drug.orElse(null);
+    public DrugResponseBody findById(String id) {
+        Optional<Drug> optionalDrug = drugRepository.findById(id);
+        Drug drug = optionalDrug.orElse(null);
+        if(drug == null) return null;
+        return new DrugResponseBody(drug);
     }
 
     public List<Drug> findByNameContaining(String name) {
@@ -30,5 +33,8 @@ public class DrugService {
             System.out.println(d);
         }
         return drugs;
+    }
+    public DrugResponseBody findByName(String name) {
+        return new DrugResponseBody(drugRepository.findByNameLike(name));
     }
 }
