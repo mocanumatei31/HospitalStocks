@@ -14,9 +14,12 @@ import java.util.UUID;
 public class DrugService {
     @Autowired
     private DrugRepository drugRepository;
+
     public List<Drug> getAllDrugs() {
         return drugRepository.findAll();
     }
+
+
     public void addDrug(Drug drug){
         drugRepository.save(drug);
     }
@@ -34,6 +37,12 @@ public class DrugService {
         }
         return drugs;
     }
+
+    /**
+     * Finds a drug by its name
+     * @param name the name to be searched for
+     * @return The drug instance with the searched for name
+     */
     public DrugResponseBody findByName(String name) {
         return new DrugResponseBody(drugRepository.findByNameLike(name));
     }

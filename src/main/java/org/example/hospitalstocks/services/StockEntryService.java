@@ -26,6 +26,10 @@ public class StockEntryService {
     @Autowired
     private PurchaseService purchaseService;
 
+    /**
+     * Retrieves all Stock entries
+     * @return the list of stock entries
+     */
     public List<StockEntryResponseBody> findAll() {
         List<StockEntryResponseBody> stockEntries = new ArrayList<>();
         for (StockEntry stockEntry : stockEntryRepository.findAll()) {
@@ -36,6 +40,12 @@ public class StockEntryService {
     public StockEntry save(StockEntry stockEntry) {
         return stockEntryRepository.save(stockEntry);
     }
+
+    /**
+     * Finds a stock entry by its id
+     * @param id the id to be searched for
+     * @return
+     */
     public StockEntry findById(String id) {
         Optional<StockEntry> stockEntry = stockEntryRepository.findById(id);
         return stockEntry.orElse(null);
@@ -43,6 +53,12 @@ public class StockEntryService {
     public void deleteById(String id) {
         stockEntryRepository.deleteById(id);
     }
+
+    /**
+     * Updates the quantity of a stock entry
+     * @param id the id of the stock entry
+     * @param quantity the quantity that has been taken out
+     */
     public void updateStockEntry(String id, Integer quantity) {
         Optional<StockEntry> stockEntryOptional = stockEntryRepository.findById(id);
         if (stockEntryOptional.isPresent()) {
@@ -54,6 +70,11 @@ public class StockEntryService {
             stockEntryRepository.save(stockEntryOptional.get());
         }
     }
+
+    /**
+     * Creates a stock entry from a purchased offer
+     * @param offer the offer to be used
+     */
     public void createStockEntryFromOffer(Offer offer) {
         StockEntry stockEntry = new StockEntry();
         stockEntry.setId(UUID.randomUUID().toString());
@@ -63,6 +84,10 @@ public class StockEntryService {
         stockEntryRepository.save(stockEntry);
     }
 
+    /**
+     * Updates the quantity of the entry upon consumption of some of its stock
+     * @param stockEntryConsumptionRequestBody the stock entry to be updated
+     */
     public void updateEntryOnConsumption(StockEntryConsumptionRequestBody stockEntryConsumptionRequestBody){
         String id = stockEntryConsumptionRequestBody.getId().replace("\"", "");
         Integer quantity = stockEntryConsumptionRequestBody.getQuantity();
@@ -70,6 +95,11 @@ public class StockEntryService {
         updateStockEntry(id, quantity);
     }
 
+    /**
+     * Returns the daily consumption of a stock entry
+     * @param stockEntry the entry whose consumption is retrieved
+     * @return the average daily consumption
+     */
     public Double getDailyConsumption(StockEntry stockEntry) {
         Integer counter = 0;
         for(Consumption c : consumptionService.getConsumptions()){
@@ -95,6 +125,12 @@ public class StockEntryService {
         }
     }
 
+    /**
+     * Retrieves the days left until the stock is depleted with the current average daily consumption
+     * @param dailyConsumption the daily consumption of the stock
+     * @param stockEntry the stock for which the data is retrieved
+     * @return the days left until the stock is depleted with the current average daily consumption
+     */
     public Double getDaysTillDone(Double dailyConsumption, StockEntry stockEntry) {
         Double remainingStock = Double.valueOf(stockEntry.getQuantity());
         return remainingStock / dailyConsumption;

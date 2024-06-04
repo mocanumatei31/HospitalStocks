@@ -32,6 +32,11 @@ public class ManufacturerService {
         manufacturerRepository.deleteById(id);
     }
 
+    /**
+     * Finds a manufacturer by its name
+     * @param name the name to be searched for
+     * @return the manufacturer with the given name
+     */
     public ManufacturerResponseBody findManufacturerByName(String name) {
         return new ManufacturerResponseBody(manufacturerRepository.findByNameLike(name));
     }

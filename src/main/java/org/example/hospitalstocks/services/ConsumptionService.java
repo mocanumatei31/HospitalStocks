@@ -15,14 +15,27 @@ public class ConsumptionService {
     @Autowired
     private ConsumptionRepository consumptionRepository;
 
+    /**
+     * Adds a consumption instance to the database
+     * @param consumption the instance to be added
+     */
     public void add(Consumption consumption) {
         consumptionRepository.save(consumption);
     }
 
+    /**
+     * Retreives all the consumption instances from the database
+     * @return the list of instances
+     */
     public List<Consumption> getConsumptions() {
         return consumptionRepository.findAll();
     }
 
+    /**
+     * Creates an instance of a consumption from a stock entry
+     * @param stockEntry the stock entry to be converted
+     * @param quantity the number of stock entries
+     */
     public void getConsumptionFromStockEntry(StockEntry stockEntry, Integer quantity) {
         Consumption consumption = new Consumption();
         consumption.setId(UUID.randomUUID().toString());

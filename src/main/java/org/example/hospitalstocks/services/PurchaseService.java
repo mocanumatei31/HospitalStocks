@@ -17,6 +17,10 @@ public class PurchaseService {
     @Autowired
     private PurchaseRepository purchaseRepository;
 
+    /**
+     * Retrieves a list of all the purchases made
+     * @return the list of purchase response bodies
+     */
     public List<PurchaseResponseBody> getAllPurchases() {
         List<Purchase> purchases = purchaseRepository.findAll();
         List<PurchaseResponseBody> purchaseResponseBodies = new ArrayList<>();
@@ -26,14 +30,26 @@ public class PurchaseService {
         return purchaseResponseBodies;
     }
 
+    /**
+     * Retrieves a list of purchases in normal form (non-response body form)
+     * @return the list of purchases
+     */
     public List<Purchase> getNormalPurchases() {
         return purchaseRepository.findAll();
     }
 
+    /**
+     * Adds a purchase to the database
+     * @param purchase the purchase to be added
+     */
     public void add(Purchase purchase) {
         purchaseRepository.save(purchase);
     }
 
+    /**
+     * Creates a Purchase instance from an offer
+     * @param offer the offer to be used
+     */
     public void createFromOffer(Offer offer) {
         Purchase purchase = new Purchase();
         purchase.setId(UUID.randomUUID().toString());

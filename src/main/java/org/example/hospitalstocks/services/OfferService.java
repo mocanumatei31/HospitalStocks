@@ -22,6 +22,10 @@ public class OfferService {
     @Autowired
     private StockEntryService stockEntryService;
 
+    /**
+     * Returns all the available offers
+     * @return a list containing all the offers
+     */
     public List<OfferResponseBody> getAllOffers() {
         List<OfferResponseBody> offers = new ArrayList<>();
         for (Offer offer : offerRepository.findAll()) {
@@ -30,6 +34,10 @@ public class OfferService {
         return offers;
     }
 
+    /**
+     * Initiates the purchase of an offer
+     * @param id the id of the offer in question
+     */
     public void buyOffer(String id) {
         Optional<Offer> optionalOffer = offerRepository.findById(id);
         if (optionalOffer.isPresent()) {
@@ -48,6 +56,11 @@ public class OfferService {
     public void addOffer(Offer offer) {
         offerRepository.save(offer);
     }
+
+    /**
+     * Deletes an offer from the database
+     * @param id the id of the offer to be deleted
+     */
     public void deleteOffer(String id) {
         offerRepository.deleteById(id);
     }
